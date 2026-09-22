@@ -1,18 +1,17 @@
-x = 0
-M = 0
-a = 0
-
-while x <= 1600:
-    if(x / 8 == 0):
-        print(x, "es multiplo")
-        M = M + x
-        x += 1
-    else:
-        print(x, "No es multiplo") 
-        a = a + x
-        x += 1
-
-    print(x, end = "\t")
-
-
-print(M) 
+from turtle import *
+import colorsys
+speed (0)
+pensize(2)
+h = 0.18
+bgcolor("black")
+for i in range(200):
+    c = colorsys.hsv_to_rgb(h,1,1)
+    color(c)
+    h -= 0.0012
+    circle(200-i, 100)
+    lt(100)
+    circle(200-i, 100)
+    rt(100)
+    
+    for j in range(3):
+        rt(20)
