@@ -1,12 +1,29 @@
+import time
+
+def Tiempo_de_Carga():
+
+    print("Cargando...")
+    for i in range(11):
+        porcentaje = i * 10
+        barra = "■" * i + "-"*(10 - 1)
+        print(f"\r[{barra}] {porcentaje}%", end="")
+        time.sleep(0.1)
+
+
+
 
 Registrados = []
 
 def Nuevo_integrante():
+
+
+
     try:
-        nombre = input("Ingresa tu nombre: ")
+        print("\n=============================================")
+        print("\t---REGISTRO DE NUEVO JUGADOR---")
+        nombre = input("\nIngresa tu nombre: ")
     except ValueError:
         print("Error, Solo puedes ingresar texto.")
-    
 
     # EDAD
 
@@ -32,7 +49,7 @@ def Nuevo_integrante():
                 continue
             break
         except ValueError:
-            print("Error, Ingresa un número decimal para la estatura")
+            print("Error, No se permite el uso de texto en este apartado. Intenta de nuevo.")
 
     Jugador = {
         "Nombre": nombre,
@@ -51,9 +68,9 @@ def Nuevo_integrante():
 
 def Consultar_Jugadores():
 
-    print("\n===================================")
-    print("       JUGADORES REGISTRADOS")
-    print("===================================")
+    print("\n=============================================")
+    print("\n       JUGADORES REGISTRADOS")
+    print("=============================================")
 
     if len(Registrados) == 0:
         print("No hay jugadores registrados.")
@@ -63,7 +80,7 @@ def Consultar_Jugadores():
         print(f"Nombre: {jugador['Nombre']}")
         print(f"Edad: {jugador['Edad']} años")
         print(f"Estatura: {jugador['Estatura']} m")
-        print("-----------------------------------")
+        print("---------------------------------------------")
 
 #---------------------------------------------------------------------------------------
 # Guardar a los jugadores en un archivo .txt
@@ -79,10 +96,27 @@ def Guardar_Jugadores():
             L_Jugadores.write(f"Estatura: {jugador['Estatura']} m\n")
             L_Jugadores.write("-----------------------------\n")
 
-    print("Jugadores guardados correctamente.")
+    print("\nJugadores guardados correctamente.")
 
 #--------------------------------------------------------------------------------------
 # Leer el Archivo
+
+    
+def Leer_Archivo():
+    print("\nLeyendo archivo...\n")
+
+    try:
+        with open("jugadores.txt", "r", encoding="utf-8") as jugadores:
+            contenido = jugadores.read()
+            
+            # .strip() remueve espacios en blanco, tabulaciones y saltos de línea
+            if not contenido.strip():
+                print("El archivo está vacío.")
+            else:
+                print(contenido)
+
+    except FileNotFoundError:
+        print("El archivo 'jugadores.txt' no se encontró.")
 
 
 
@@ -95,37 +129,42 @@ while True:
     Menu = [
     ["1", "Registrar jugador"],
     ["2", "Consultar jugadores"],
-    ["3", "Crear / modificar archivo"],
+    ["3", "Guardar jugadores"],
     ["4", "Leer archivo"],
     ["5", "Información del equipo"],
     ["6", "Finalizar programa"]
 ]
 
 
-    print("\n===================================")
-    print("       MENU PRINCIPAL")
-    print("-----------------------------------")
+    print("\n=============================================")
+    print("\t       MENU PRINCIPAL")
+    print("---------------------------------------------")
     print("(1) Registrar Jugador")
     print("(2) Consultar Jugadores")
-    print("(3) Crear / Modificar archivo")
+    print("(3) Guardar jugadores")
     print("(4) Leer Archivo")
     print("(5) Información del equipo")
     print("(6) Finalizar el programa")
-    print("-----------------------------------")
+    print("---------------------------------------------")
 
     try:
         opcion = int(input("Ingresa una opción numérica del 1-6: "))
 
         if opcion == 1:
+            Tiempo_de_Carga()
             Nuevo_integrante()
 
         if opcion == 2:
+            Tiempo_de_Carga()
             Consultar_Jugadores()
 
         if opcion == 3:
+            Tiempo_de_Carga()
             Guardar_Jugadores()
 
-        #if opcion == 4:
+        if opcion == 4:
+            Tiempo_de_Carga()
+            Leer_Archivo()
 
         #if opcion == 5:
 
@@ -134,13 +173,14 @@ while True:
             print("!Hasta pronto¡")
             break
 
-        if not opcion == 1 or 2 or 3 or 4 or 5 or 6:
+        elif opcion not in range(1, 7):
             print("Error, solo puedes ingresar opciones del 1 - 6.")
 
 
     
     except ValueError:
-        print("NMS we, qpdo.")
+        print("No se permite el uso de texto en este apartado. Intenta de nuevo.")
+
 
 
 
