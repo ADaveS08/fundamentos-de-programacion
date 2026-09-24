@@ -1,8 +1,12 @@
-my_list = [1, 2]
+nombre = input("Ingresa tu nombre: ")
 
-for v in range(2):
-    my_list.insert(-1, my_list[v])
+while True:
+    try:
+        edad = int(input("Ingresa tu edad: "))
 
-print(my_list)
-
-
+        if edad <= 17:
+            print("La edad debe ser mayor a 17 años")
+            continue
+        break
+    except ValueError:
+        print("Error, ingresa un número entero para la edad")
