@@ -21,7 +21,7 @@ def Nuevo_integrante():
         except ValueError:
             print("Error, ingresa un número entero para la edad")
 
-    # ESTATURA
+    # Estatura
 
     while True:
         try:
@@ -44,13 +44,51 @@ def Nuevo_integrante():
     print(f"¡{nombre} ha sido registrad@ con éxito!")
 
 
+
+
+# -----------------------------------------------------------------------------------
+# Lista de jugadores
+
 def Consultar_Jugadores():
-    print(Registrados)
-    
-    
 
-        
+    print("\n===================================")
+    print("       JUGADORES REGISTRADOS")
+    print("===================================")
 
+    if len(Registrados) == 0:
+        print("No hay jugadores registrados.")
+        return
+
+    for jugador in Registrados:
+        print(f"Nombre: {jugador['Nombre']}")
+        print(f"Edad: {jugador['Edad']} años")
+        print(f"Estatura: {jugador['Estatura']} m")
+        print("-----------------------------------")
+
+#---------------------------------------------------------------------------------------
+# Guardar a los jugadores en un archivo .txt
+
+def Guardar_Jugadores():
+
+            # "as" da nombre temporal al .txt
+    with open("jugadores.txt", "w") as L_Jugadores:
+
+        for jugador in Registrados:
+            L_Jugadores.write(f"Nombre: {jugador['Nombre']}\n")
+            L_Jugadores.write(f"Edad: {jugador['Edad']}\n")
+            L_Jugadores.write(f"Estatura: {jugador['Estatura']} m\n")
+            L_Jugadores.write("-----------------------------\n")
+
+    print("Jugadores guardados correctamente.")
+
+#--------------------------------------------------------------------------------------
+# Leer el Archivo
+
+
+
+
+# ------------------------------------------------------------------------------------ 
+# Menu principal
 
 
 while True:
@@ -84,7 +122,8 @@ while True:
         if opcion == 2:
             Consultar_Jugadores()
 
-        #if opcion == 3:
+        if opcion == 3:
+            Guardar_Jugadores()
 
         #if opcion == 4:
 
@@ -95,9 +134,13 @@ while True:
             print("!Hasta pronto¡")
             break
 
+        if not opcion == 1 or 2 or 3 or 4 or 5 or 6:
+            print("Error, solo puedes ingresar opciones del 1 - 6.")
+
+
     
     except ValueError:
-        print("Hola")
+        print("NMS we, qpdo.")
 
 
 
