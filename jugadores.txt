@@ -1,0 +1,10 @@
+Nombre: Adam Dave Arellano Domínguez
+Edad: 23
+Estatura: 2.3 m
+Experiencia: 24 meses
+-----------------------------
+Nombre: Julio Gutierrez
+Edad: 18
+Estatura: 1.76 m
+Experiencia: 12 meses
+-----------------------------

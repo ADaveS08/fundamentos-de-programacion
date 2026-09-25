@@ -1,16 +1,26 @@
 import time
 
+
 def Tiempo_de_Carga():
 
     print("Cargando...")
     for i in range(11):
         porcentaje = i * 10
-        barra = "■" * i + "-"*(10 - 1)
+        barra = "■■" * i + "--" * (10 - i)
         print(f"\r[{barra}] {porcentaje}%", end="")
         time.sleep(0.1)
 
+def Tiempo_de_Carga2():
 
+    print("Cargando...")
+    for i in range(11):
+        porcentaje = i * 10
+        barra = "■■" * i + "--" * (10 - i)
+        print(f"\r[{barra}] {porcentaje}%", end="")
+        time.sleep(0.05)
 
+#-----------------------------------------------------------------------------------------
+# def (1)
 
 Registrados = []
 
@@ -51,20 +61,36 @@ def Nuevo_integrante():
         except ValueError:
             print("Error, No se permite el uso de texto en este apartado. Intenta de nuevo.")
 
+    while True:
+        try:
+            Experiencia = int(input("Ingresa tu experiencia en el juego en meses con números enteros: "))
+
+            if Experiencia < 0:
+                print("No se permiten números negativos")
+                continue
+            break
+        except ValueError:
+            print("Error, solo se permiten números")
+            
+        
+
+
     Jugador = {
         "Nombre": nombre,
         "Edad": edad,
-        "Estatura": estatura
+        "Estatura": estatura,
+        "Experiencia": Experiencia
     }
+    
 
     Registrados.append(Jugador)
-    print(f"¡{nombre} ha sido registrad@ con éxito!")
+    print(f"\n¡{nombre} ha sido registrad@ con éxito!")
 
 
 
 
 # -----------------------------------------------------------------------------------
-# Lista de jugadores
+# Lista de jugadores def (2)
 
 def Consultar_Jugadores():
 
@@ -80,10 +106,11 @@ def Consultar_Jugadores():
         print(f"Nombre: {jugador['Nombre']}")
         print(f"Edad: {jugador['Edad']} años")
         print(f"Estatura: {jugador['Estatura']} m")
+        print(f"Experiencia: {jugador['Experiencia']} meses")
         print("---------------------------------------------")
 
 #---------------------------------------------------------------------------------------
-# Guardar a los jugadores en un archivo .txt
+# Guardar a los jugadores en un archivo .txt. def(3)
 
 def Guardar_Jugadores():
 
@@ -94,22 +121,24 @@ def Guardar_Jugadores():
             L_Jugadores.write(f"Nombre: {jugador['Nombre']}\n")
             L_Jugadores.write(f"Edad: {jugador['Edad']}\n")
             L_Jugadores.write(f"Estatura: {jugador['Estatura']} m\n")
+            L_Jugadores.write(f"Experiencia: {jugador['Experiencia']} meses\n")
             L_Jugadores.write("-----------------------------\n")
+        
+        print("\nJugadores guardados correctamente.")
+    
 
-    print("\nJugadores guardados correctamente.")
-
+    
 #--------------------------------------------------------------------------------------
-# Leer el Archivo
+# Leer el Archivo def (4)
 
     
 def Leer_Archivo():
     print("\nLeyendo archivo...\n")
 
     try:
-        with open("jugadores.txt", "r", encoding="utf-8") as jugadores:
+        with open("jugadores.txt", "r", encoding="cp1252") as jugadores:
             contenido = jugadores.read()
-            
-            # .strip() remueve espacios en blanco, tabulaciones y saltos de línea
+
             if not contenido.strip():
                 print("El archivo está vacío.")
             else:
@@ -118,8 +147,49 @@ def Leer_Archivo():
     except FileNotFoundError:
         print("El archivo 'jugadores.txt' no se encontró.")
 
+#--------------------------------------------------------------------------------------
+# Mini menu dentro de Menú principal def(5)
 
 
+def Informacion_de_equipo():
+    print("\n=============================================")
+    print("\n       INFORMACION DEL EQUIPO")
+    print("=============================================")
+
+
+
+        # Jugador Base
+    EstaturaB = 1.65
+    ExperienciaB = 24
+
+    # Jugador Escolta
+    EstaturaE = 1.75
+    ExperienciaE = 6
+
+    # Jugador Alero
+    EstaturaA = 1.70
+    ExperienciaA = 12
+
+    # Jugador Pivot
+    EstaturaP = 1.75
+    ExperienciaP = 18
+
+    # Jugador Ala-Pivote
+    EstaturaAP = 1.80
+    ExperienciaAP = 20
+
+
+    Posiciones = [
+        ("Ala-Pivot", EstaturaAP, ExperienciaAP),
+        ("Pivot", EstaturaP, ExperienciaP),
+        ("Alero", EstaturaA, ExperienciaA),
+        ("Escolta", EstaturaE, ExperienciaE),
+        ("Base", EstaturaB, ExperienciaB)
+    ]
+    while True:
+        for jugador in Registrados:
+            print(f"Nombre: {jugador['Nombre']}\n")
+        break
 
 # ------------------------------------------------------------------------------------ 
 # Menu principal
@@ -151,35 +221,39 @@ while True:
         opcion = int(input("Ingresa una opción numérica del 1-6: "))
 
         if opcion == 1:
-            Tiempo_de_Carga()
+            Tiempo_de_Carga2()
             Nuevo_integrante()
 
-        if opcion == 2:
-            Tiempo_de_Carga()
+        elif opcion == 2:
+            Tiempo_de_Carga2()
             Consultar_Jugadores()
 
-        if opcion == 3:
-            Tiempo_de_Carga()
+        elif opcion == 3:
+            Tiempo_de_Carga2()
             Guardar_Jugadores()
 
-        if opcion == 4:
-            Tiempo_de_Carga()
+        elif opcion == 4:
+            Tiempo_de_Carga2()
             Leer_Archivo()
 
-        #if opcion == 5:
+        if opcion == 5:
+            Tiempo_de_Carga2()
+            Informacion_de_equipo()
 
-        if opcion == 6:
+        elif opcion == 6:
             print("\nPrograma finalizado.")
             print("!Hasta pronto¡")
             break
 
-        elif opcion not in range(1, 7):
-            print("Error, solo puedes ingresar opciones del 1 - 6.")
+        else:
+            if opcion not in range(1, 7):
+
+                print("Error, solo puedes ingresar opciones del 1 - 6.")
 
 
-    
-    except ValueError:
-        print("No se permite el uso de texto en este apartado. Intenta de nuevo.")
+    except ValueError as error:
+        print("OCURRIÓ UN ERROR:")
+        print(error)
 
 
 
