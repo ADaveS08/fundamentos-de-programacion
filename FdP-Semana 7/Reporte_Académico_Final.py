@@ -35,10 +35,16 @@ def Temporizador_Inactividad():
 
 def Iniciar_Temporizador():
 
+    evento_temporizador.clear()
+
     hilo = threading.Thread(target=Temporizador_Inactividad)
     hilo.daemon = True
     hilo.start()
 
+def Reiniciar_Temporizador():
+
+    evento_temporizador.set()
+    Iniciar_Temporizador()
 
 
 #-----------------------------------------------------------------------------------------
@@ -247,6 +253,7 @@ while True:
 
     try:
         opcion = int(input("Ingresa una opción numérica del 1-6: "))
+        Reiniciar_Temporizador()
 
         if opcion == 1:
             Tiempo_de_Carga2()
