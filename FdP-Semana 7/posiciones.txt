@@ -1,0 +1,5 @@
+Ala-Pivot,1.80,20
+Pivot,1.75,18
+Alero,1.70,12
+Escolta,1.75,6
+Base,1.65,24

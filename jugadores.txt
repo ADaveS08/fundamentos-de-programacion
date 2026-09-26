@@ -1,10 +1,5 @@
-Nombre: Adam Dave Arellano Dominguez
+Nombre: Adam Dave Arellano Domínguez
 Edad: 18
-Estatura: 1.74 m
+Estatura: 1.75 m
 Experiencia: 24 meses
------------------------------
-Nombre: Julio Regalado
-Edad: 19
-Estatura: 1.67 m
-Experiencia: 12 meses
 -----------------------------

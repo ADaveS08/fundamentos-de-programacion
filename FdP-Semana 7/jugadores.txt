@@ -1,0 +1,5 @@
+Nombre: Adaam
+Edad: 21
+Estatura: 1.87 m
+Experiencia: 22 meses
+-----------------------------

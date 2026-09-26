@@ -114,8 +114,8 @@ def Consultar_Jugadores():
 
 def Guardar_Jugadores():
 
-            # "as" da nombre temporal al .txt
-    with open("jugadores.txt", "w") as L_Jugadores:
+            
+    with open("FdP-Semana 7/jugadores.txt", "w") as L_Jugadores:
 
         for jugador in Registrados:
             L_Jugadores.write(f"Nombre: {jugador['Nombre']}\n")
@@ -125,7 +125,7 @@ def Guardar_Jugadores():
             L_Jugadores.write("-----------------------------\n")
         
         print("\nJugadores guardados correctamente.")
-    
+
 
     
 #--------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ def Leer_Archivo():
     print("\nLeyendo archivo...\n")
 
     try:
-        with open("jugadores.txt", "r", encoding="cp1252") as jugadores:
+        with open("FdP-Semana 7/jugadores.txt", "r", encoding="cp1252") as jugadores:
             contenido = jugadores.read()
 
             if not contenido.strip():
@@ -148,43 +148,36 @@ def Leer_Archivo():
         print("El archivo 'jugadores.txt' no se encontró.")
 
 #--------------------------------------------------------------------------------------
-# Mini menu dentro de Menú principal def(5)
-
+# Información de equipo def (5)
 
 def Informacion_de_equipo():
     print("\n=============================================")
     print("\n       INFORMACION DEL EQUIPO")
     print("=============================================")
 
+    Posiciones = []
 
-    EstaturaB = 1.65
-    ExperienciaB = 24
+    try:
+        with open("FdP-Semana 7/posiciones.txt", "r", encoding="cp1252") as archivo:
 
-    EstaturaE = 1.75
-    ExperienciaE = 6
+            for linea in archivo:
+                datos = linea.strip().split(",")
 
-    EstaturaA = 1.70
-    ExperienciaA = 12
+                NombrePosicion = datos[0]
+                EstaturaMinima = float(datos[1])
+                ExperienciaMinima = int(datos[2])
 
-    EstaturaP = 1.75
-    ExperienciaP = 18
+                Posiciones.append(
+                    (NombrePosicion, EstaturaMinima, ExperienciaMinima)
+                )
 
-    EstaturaAP = 1.80
-    ExperienciaAP = 20
-
-
-    Posiciones = [
-        ("Ala-Pivot", EstaturaAP, ExperienciaAP),
-        ("Pivot", EstaturaP, ExperienciaP),
-        ("Alero", EstaturaA, ExperienciaA),
-        ("Escolta", EstaturaE, ExperienciaE),
-        ("Base", EstaturaB, ExperienciaB)
-    ]
+    except FileNotFoundError:
+        print("No se encontró el archivo posiciones.txt")
+        return
 
     if len(Registrados) == 0:
         print("No hay jugadores registrados.")
         return
-
 
     for jugador in Registrados:
 
@@ -201,6 +194,8 @@ def Informacion_de_equipo():
         print(f"Experiencia: {jugador['Experiencia']} meses")
         print(f"Posición recomendada: {Posicion}")
         print("---------------------------------------------")
+
+
 
 # ------------------------------------------------------------------------------------ 
 # Menu principal
