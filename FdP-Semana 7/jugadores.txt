@@ -1,5 +1,5 @@
-Nombre: Adaam
+Nombre: Adam
 Edad: 21
-Estatura: 1.87 m
-Experiencia: 22 meses
+Estatura: 1.74 m
+Experiencia: 36 meses
 -----------------------------

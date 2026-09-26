@@ -1,6 +1,36 @@
+ 
+
+
 import time
 import threading
+
+Usuario_Correcto = "TheGoat"
+Contraseña_Correcta = "1234"
+
+def Iniciar_Sesion():
+
+    intentos = 0
+
+    while intentos < 3:
+
+        usuario = input("Ingresa tu usuario: ")
+        contraseña = input("Ingresa tu contraseña: ")
+
+        if usuario == Usuario_Correcto and contraseña == Contraseña_Correcta:
+            print("Inicio de sesión exitoso.")
+            return True
+        else:
+            intentos += 1
+            print("Usuario o contraseña incorrectos.")
+            print(f"Intento {intentos} de 3.")
+
+    print("Has superado el número máximo de intentos.")
+    return False
+
+
 evento_temporizador = threading.Event()
+
+
 
 
 def Tiempo_de_Carga():
@@ -10,7 +40,7 @@ def Tiempo_de_Carga():
         porcentaje = i * 10
         barra = "■■" * i + "--" * (10 - i)
         print(f"\r[{barra}] {porcentaje}%", end="")
-        time.sleep(0.1)
+        time.sleep(0.15)
 
 def Tiempo_de_Carga2():
 
@@ -24,7 +54,7 @@ def Tiempo_de_Carga2():
 
 def Temporizador_Inactividad():
 
-    for i in range(10):
+    for i in range(600):
         if evento_temporizador.is_set():
             return
 
@@ -223,72 +253,76 @@ def Informacion_de_equipo():
         print(f"Posición recomendada: {Posicion}")
         print("---------------------------------------------")
 
-Iniciar_Temporizador()
+acceso = Iniciar_Sesion()
 
-# ------------------------------------------------------------------------------------ 
-# Menu principal
+if acceso:
 
+    Iniciar_Temporizador()
 
-while True:
-    Menu = [
-    ["1", "Registrar jugador"],
-    ["2", "Consultar jugadores"],
-    ["3", "Guardar jugadores"],
-    ["4", "Leer archivo"],
-    ["5", "Información del equipo"],
-    ["6", "Finalizar programa"]
-]
+    # ------------------------------------------------------------------------------------ 
+    # Menu principal
 
 
-    print("\n=============================================")
-    print("\t       MENU PRINCIPAL")
-    print("---------------------------------------------")
-    print("(1) Registrar Jugador")
-    print("(2) Consultar Jugadores")
-    print("(3) Guardar jugadores")
-    print("(4) Leer Archivo")
-    print("(5) Información del equipo")
-    print("(6) Finalizar el programa")
-    print("---------------------------------------------")
-
-    try:
-        opcion = int(input("Ingresa una opción numérica del 1-6: "))
-        Reiniciar_Temporizador()
-
-        if opcion == 1:
-            Tiempo_de_Carga2()
-            Nuevo_integrante()
-
-        elif opcion == 2:
-            Tiempo_de_Carga2()
-            Consultar_Jugadores()
-
-        elif opcion == 3:
-            Tiempo_de_Carga2()
-            Guardar_Jugadores()
-
-        elif opcion == 4:
-            Tiempo_de_Carga2()
-            Leer_Archivo()
-
-        elif opcion == 5:
-            Tiempo_de_Carga2()
-            Informacion_de_equipo()
-
-        elif opcion == 6:
-            print("\nPrograma finalizado.")
-            print("!Hasta pronto¡")
-            break
-
-        else:
-            if opcion not in range(1, 7):
-
-                print("Error, solo puedes ingresar opciones del 1 - 6.")
+    while True:
+        Menu = [
+        ["1", "Registrar jugador"],
+        ["2", "Consultar jugadores"],
+        ["3", "Guardar jugadores"],
+        ["4", "Leer archivo"],
+        ["5", "Información del equipo"],
+        ["6", "Finalizar programa"]
+    ]
 
 
-    except ValueError as error:
-        print("OCURRIÓ UN ERROR:")
-        print(error)
+        print("\n=============================================")
+        print("\t       MENU PRINCIPAL")
+        print("---------------------------------------------")
+        print("(1) Registrar Jugador")
+        print("(2) Consultar Jugadores")
+        print("(3) Guardar jugadores")
+        print("(4) Leer Archivo")
+        print("(5) Información del equipo")
+        print("(6) Finalizar el programa")
+        print("---------------------------------------------")
+
+        try:
+            opcion = int(input("Ingresa una opción numérica del 1-6: "))
+            Reiniciar_Temporizador()
+
+            if opcion == 1:
+                Tiempo_de_Carga()
+                Nuevo_integrante()
+
+            elif opcion == 2:
+                Tiempo_de_Carga2()
+                Consultar_Jugadores()
+
+            elif opcion == 3:
+                Tiempo_de_Carga2()
+                Guardar_Jugadores()
+
+            elif opcion == 4:
+                Tiempo_de_Carga2()
+                Leer_Archivo()
+
+            elif opcion == 5:
+                Tiempo_de_Carga2()
+                Informacion_de_equipo()
+
+            elif opcion == 6:
+                print("\nPrograma finalizado.")
+                print("!Hasta pronto¡")
+                break
+
+            else:
+                if opcion not in range(1, 7):
+
+                    print("Error, solo puedes ingresar opciones del 1 - 6.")
+
+
+        except ValueError as error:
+            print("OCURRIÓ UN ERROR:")
+            print(error)
 
 
 
