@@ -1,4 +1,5 @@
 import time
+import threading
 
 
 def Tiempo_de_Carga():
@@ -18,6 +19,23 @@ def Tiempo_de_Carga2():
         barra = "■■" * i + "--" * (10 - i)
         print(f"\r[{barra}] {porcentaje}%", end="")
         time.sleep(0.05)
+
+
+def Temporizador_Inactividad():
+
+    for i in range(10):
+        time.sleep(1)
+
+    print("\n¿Sigues estando ahí?")
+
+
+def Iniciar_Temporizador():
+
+    hilo = threading.Thread(target=Temporizador_Inactividad)
+    hilo.daemon = True
+    hilo.start()
+
+
 
 #-----------------------------------------------------------------------------------------
 # def (1)
@@ -195,7 +213,7 @@ def Informacion_de_equipo():
         print(f"Posición recomendada: {Posicion}")
         print("---------------------------------------------")
 
-
+Iniciar_Temporizador()
 
 # ------------------------------------------------------------------------------------ 
 # Menu principal
