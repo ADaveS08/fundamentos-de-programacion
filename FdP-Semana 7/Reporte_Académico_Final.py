@@ -1,5 +1,6 @@
 import time
 import threading
+evento_temporizador = threading.Event()
 
 
 def Tiempo_de_Carga():
@@ -24,6 +25,9 @@ def Tiempo_de_Carga2():
 def Temporizador_Inactividad():
 
     for i in range(10):
+        if evento_temporizador.is_set():
+            return
+
         time.sleep(1)
 
     print("\n¿Sigues estando ahí?")
