@@ -157,24 +157,18 @@ def Informacion_de_equipo():
     print("=============================================")
 
 
-
-        # Jugador Base
     EstaturaB = 1.65
     ExperienciaB = 24
 
-    # Jugador Escolta
     EstaturaE = 1.75
     ExperienciaE = 6
 
-    # Jugador Alero
     EstaturaA = 1.70
     ExperienciaA = 12
 
-    # Jugador Pivot
     EstaturaP = 1.75
     ExperienciaP = 18
 
-    # Jugador Ala-Pivote
     EstaturaAP = 1.80
     ExperienciaAP = 20
 
@@ -186,10 +180,27 @@ def Informacion_de_equipo():
         ("Escolta", EstaturaE, ExperienciaE),
         ("Base", EstaturaB, ExperienciaB)
     ]
-    while True:
-        for jugador in Registrados:
-            print(f"Nombre: {jugador['Nombre']}\n")
-        break
+
+    if len(Registrados) == 0:
+        print("No hay jugadores registrados.")
+        return
+
+
+    for jugador in Registrados:
+
+        Posicion = "Sin posición recomendada"
+
+        for NombrePosicion, EstaturaMinima, ExperienciaMinima in Posiciones:
+
+            if jugador["Estatura"] >= EstaturaMinima and jugador["Experiencia"] >= ExperienciaMinima:
+                Posicion = NombrePosicion
+                break
+
+        print(f"\nNombre: {jugador['Nombre']}")
+        print(f"Estatura: {jugador['Estatura']} m")
+        print(f"Experiencia: {jugador['Experiencia']} meses")
+        print(f"Posición recomendada: {Posicion}")
+        print("---------------------------------------------")
 
 # ------------------------------------------------------------------------------------ 
 # Menu principal
@@ -236,7 +247,7 @@ while True:
             Tiempo_de_Carga2()
             Leer_Archivo()
 
-        if opcion == 5:
+        elif opcion == 5:
             Tiempo_de_Carga2()
             Informacion_de_equipo()
 
