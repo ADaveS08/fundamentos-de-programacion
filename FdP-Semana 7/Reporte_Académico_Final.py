@@ -1,10 +1,99 @@
- 
+#-------------------------------------------------------------------------------------------
+# Colores
+
+# Reset
+RESET = "\033[0m"
+
+# Colores normales
+NEGRO = "\033[30m"
+ROJO = "\033[31m"
+VERDE = "\033[32m"
+AMARILLO = "\033[33m"
+AZUL = "\033[34m"
+MAGENTA = "\033[35m"
+CIAN = "\033[36m"
+BLANCO = "\033[37m"
+
+# Colores brillantes
+GRIS = "\033[90m"
+ROJO_CLARO = "\033[91m"
+VERDE_CLARO = "\033[92m"
+AMARILLO_CLARO = "\033[93m"
+AZUL_CLARO = "\033[94m"
+MAGENTA_CLARO = "\033[95m"
+CIAN_CLARO = "\033[96m"
+BLANCO_BRILLANTE = "\033[97m"
+
+# Fondos normales
+FONDO_NEGRO = "\033[40m"
+FONDO_ROJO = "\033[41m"
+FONDO_VERDE = "\033[42m"
+FONDO_AMARILLO = "\033[43m"
+FONDO_AZUL = "\033[44m"
+FONDO_MAGENTA = "\033[45m"
+FONDO_CIAN = "\033[46m"
+FONDO_BLANCO = "\033[47m"
+
+# Fondos brillantes
+FONDO_GRIS = "\033[100m"
+FONDO_ROJO_CLARO = "\033[101m"
+FONDO_VERDE_CLARO = "\033[102m"
+FONDO_AMARILLO_CLARO = "\033[103m"
+FONDO_AZUL_CLARO = "\033[104m"
+FONDO_MAGENTA_CLARO = "\033[105m"
+FONDO_CIAN_CLARO = "\033[106m"
+FONDO_BLANCO_BRILLANTE = "\033[107m"
+
+
+
+
+
+#-----------------------------------------------------------------------------------------
+# Bienvenida
+
+
+print(f"""{FONDO_AZUL} ███  ████  █████  ███  
+█     █   █ █     █   █ 
+█     ████  ████  █████ 
+█     █  █  █     █   █ 
+ ███  █   █ █████ █   █ """)
+
+
+print(f"""\n█████ █   █ 
+  █   █   █ 
+  █   █   █ 
+  █   █   █ 
+  █    ███  {RESET}""")
+
+print(f"""{FONDO_BLANCO_BRILLANTE},{NEGRO}\n█████  ███  █   █ ███ ████   ███  
+█     █   █ █   █  █  █   █ █   █ 
+████  █   █ █   █  █  ████  █   █ 
+█     █  █  █   █  █  █     █   █ 
+█████  ██ █  ███  ███ █      ███  {RESET}""")
+
+print(f"""{FONDO_ROJO_CLARO}\n████  █████ 
+█   █ █     
+█   █ ████  
+█   █ █     
+████  █████ """)
+
+print(f"""\n████   ███   ████ █   █ █████ █████ ████   ███  █     █     
+█   █ █   █ █     █  █  █       █   █   █ █   █ █     █     
+████  █████  ███  ███   ████    █   ████  █████ █     █     
+█   █ █   █     █ █  █  █       █   █   █ █   █ █     █     
+████  █   █ ████  █   █ █████   █   ████  █   █ █████ █████ {RESET}""")
+
+
+
+
+
+
 
 
 import time
 import threading
 
-Usuario_Correcto = "TheGoat"
+Usuario_Correcto = "TheGoat" 
 Contraseña_Correcta = "1234"
 
 def Iniciar_Sesion():
@@ -13,7 +102,7 @@ def Iniciar_Sesion():
 
     while intentos < 3:
 
-        usuario = input("Ingresa tu usuario: ")
+        usuario = input("\nIngresa tu usuario: ")
         contraseña = input("Ingresa tu contraseña: ")
 
         if usuario == Usuario_Correcto and contraseña == Contraseña_Correcta:
@@ -28,9 +117,15 @@ def Iniciar_Sesion():
     return False
 
 
+# def Capturar_fecha()
+    
+
+
+
+
+
+
 evento_temporizador = threading.Event()
-
-
 
 
 def Tiempo_de_Carga():

@@ -1,5 +1,0 @@
-Nombre: Adam
-Edad: 21
-Estatura: 1.74 m
-Experiencia: 36 meses
------------------------------
