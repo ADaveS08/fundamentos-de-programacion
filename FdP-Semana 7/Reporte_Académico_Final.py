@@ -102,18 +102,18 @@ def Iniciar_Sesion():
 
     while intentos < 3:
 
-        usuario = input("\nIngresa tu usuario: ")
-        contraseña = input("Ingresa tu contraseña: ")
+        usuario = input(f"{CIAN}\nIngresa tu usuario: {RESET}")
+        contraseña = input(f"{CIAN}Ingresa tu contraseña: {RESET}")
 
         if usuario == Usuario_Correcto and contraseña == Contraseña_Correcta:
-            print("Inicio de sesión exitoso.")
+            print(f"{VERDE}Inicio de sesión exitoso.{RESET}")
             return True
         else:
             intentos += 1
-            print("Usuario o contraseña incorrectos.")
+            print(f"{ROJO}Usuario o contraseña incorrectos.{RESET}")
             print(f"Intento {intentos} de 3.")
 
-    print("Has superado el número máximo de intentos.")
+    print(f"{ROJO_CLARO}\nHas superado el número máximo de intentos.{RESET}")
     return False
 
 
@@ -126,11 +126,12 @@ def Iniciar_Sesion():
 
 
 evento_temporizador = threading.Event()
+inactividad_detectada = threading.Event()
 
 
 def Tiempo_de_Carga():
 
-    print("Cargando...")
+    print(f"{VERDE_CLARO}Cargando...{RESET}")
     for i in range(11):
         porcentaje = i * 10
         barra = "■■" * i + "--" * (10 - i)
@@ -139,7 +140,7 @@ def Tiempo_de_Carga():
 
 def Tiempo_de_Carga2():
 
-    print("Cargando...")
+    print(f"{VERDE_CLARO}Cargando...{RESET}")
     for i in range(11):
         porcentaje = i * 10
         barra = "■■" * i + "--" * (10 - i)
@@ -149,27 +150,50 @@ def Tiempo_de_Carga2():
 
 def Temporizador_Inactividad():
 
-    for i in range(600):
-        if evento_temporizador.is_set():
-            return
+    while True:
+        for i in range(600):
 
-        time.sleep(1)
+            if evento_temporizador.wait(1):
+                break
 
-    print("\n¿Sigues estando ahí?")
+        else:
+            inactividad_detectada.set()
+            break
 
 
 def Iniciar_Temporizador():
 
-    evento_temporizador.clear()
-
-    hilo = threading.Thread(target=Temporizador_Inactividad)
-    hilo.daemon = True
+    hilo = threading.Thread(
+        target=Temporizador_Inactividad,
+        daemon=True
+    )
     hilo.start()
 
 def Reiniciar_Temporizador():
 
     evento_temporizador.set()
-    Iniciar_Temporizador()
+    evento_temporizador.clear()
+
+def Verificar_Inactividad():
+
+    if inactividad_detectada.is_set():
+
+        respuesta = input("\n¿Sigues estando ahí? (s/n): ").lower()
+
+        if respuesta == "s":
+            inactividad_detectada.clear()
+            Reiniciar_Temporizador()
+            return True
+
+        elif respuesta == "n":
+            print("Sesión finalizada por inactividad.")
+            return False
+
+        else:
+            print("Respuesta no válida.")
+            return False
+
+    return True
 
 
 #-----------------------------------------------------------------------------------------
@@ -247,12 +271,12 @@ def Nuevo_integrante():
 
 def Consultar_Jugadores():
 
-    print("\n=============================================")
-    print("\n       JUGADORES REGISTRADOS")
-    print("=============================================")
+    print(f"\n\n{AZUL}============================================={RESET}")
+    print(f"{VERDE_CLARO}       JUGADORES REGISTRADOS{RESET}")
+    print(f"{AZUL}============================================={RESET}")
 
     if len(Registrados) == 0:
-        print("No hay jugadores registrados.")
+        print(f"{ROJO}No hay jugadores registrados.{RESET}")
         return
 
     for jugador in Registrados:
@@ -260,7 +284,7 @@ def Consultar_Jugadores():
         print(f"Edad: {jugador['Edad']} años")
         print(f"Estatura: {jugador['Estatura']} m")
         print(f"Experiencia: {jugador['Experiencia']} meses")
-        print("---------------------------------------------")
+        print(f"{AZUL}---------------------------------------------{RESET}")
 
 #---------------------------------------------------------------------------------------
 # Guardar a los jugadores en un archivo .txt. def(3)
@@ -275,9 +299,9 @@ def Guardar_Jugadores():
             L_Jugadores.write(f"Edad: {jugador['Edad']}\n")
             L_Jugadores.write(f"Estatura: {jugador['Estatura']} m\n")
             L_Jugadores.write(f"Experiencia: {jugador['Experiencia']} meses\n")
-            L_Jugadores.write("-----------------------------\n")
+            L_Jugadores.write("---------------------------------------------\n")
         
-        print("\nJugadores guardados correctamente.")
+        print(f"{VERDE}\nJugadores guardados correctamente.{RESET}")
 
 
     
@@ -286,19 +310,21 @@ def Guardar_Jugadores():
 
     
 def Leer_Archivo():
-    print("\nLeyendo archivo...\n")
+    print("\n\n=============================================")
+    print("\n\tLeyendo archivo...")
+    print("\n-----------------------------------")
 
     try:
         with open("FdP-Semana 7/jugadores.txt", "r", encoding="cp1252") as jugadores:
             contenido = jugadores.read()
 
             if not contenido.strip():
-                print("El archivo está vacío.")
+                print(f"{ROJO}El archivo está vacío.{RESET}")
             else:
                 print(contenido)
 
     except FileNotFoundError:
-        print("El archivo 'jugadores.txt' no se encontró.")
+        print(f"{ROJO}El archivo 'jugadores.txt' no se encontró.{RESET}")
 
 #--------------------------------------------------------------------------------------
 # Información de equipo def (5)
@@ -369,19 +395,19 @@ if acceso:
     ]
 
 
-        print("\n=============================================")
-        print("\t       MENU PRINCIPAL")
-        print("---------------------------------------------")
-        print("(1) Registrar Jugador")
-        print("(2) Consultar Jugadores")
-        print("(3) Guardar jugadores")
-        print("(4) Leer Archivo")
-        print("(5) Información del equipo")
-        print("(6) Finalizar el programa")
-        print("---------------------------------------------")
+        print(f"{AMARILLO}\n============================================={RESET}")
+        print(f"{MAGENTA}\t       MENU PRINCIPAL{RESET}")
+        print(f"{AMARILLO}---------------------------------------------{RESET}")
+        print(f"{AMARILLO}(1) {RESET}{MAGENTA_CLARO}Registrar Jugador{RESET}")
+        print(f"{AMARILLO}(2) {RESET}{MAGENTA_CLARO}Consultar Jugadores{RESET}")
+        print(f"{AMARILLO}(3) {RESET}{MAGENTA_CLARO}Guardar jugadores{RESET}")
+        print(f"{AMARILLO}(4) {RESET}{MAGENTA_CLARO}Leer Archivo{RESET}")
+        print(f"{AMARILLO}(5) {RESET}{MAGENTA_CLARO}Información del equipo{RESET}")
+        print(f"{AMARILLO}(6) {RESET}{MAGENTA_CLARO}Finalizar el programa{RESET}")
+        print(f"{AMARILLO}---------------------------------------------{RESET}")
 
         try:
-            opcion = int(input("Ingresa una opción numérica del 1-6: "))
+            opcion = int(input(f"{CIAN}Ingresa una opción numérica del 1-6: {RESET}"))
             Reiniciar_Temporizador()
 
             if opcion == 1:
@@ -412,12 +438,13 @@ if acceso:
             else:
                 if opcion not in range(1, 7):
 
-                    print("Error, solo puedes ingresar opciones del 1 - 6.")
+                    print(f"{ROJO}Error, solo puedes ingresar opciones del 1 - 6.{RESET}")
+            
 
 
         except ValueError as error:
-            print("OCURRIÓ UN ERROR:")
-            print(error)
+            print(f"{ROJO}OCURRIÓ UN ERROR:{RESET}")
+            print(f"{ROJO}error{RESET}")
 
 
 

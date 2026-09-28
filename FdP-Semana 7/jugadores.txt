@@ -1,0 +1,10 @@
+Nombre: Adam Dave Arellano Domínguez
+Edad: 18
+Estatura: 1.75 m
+Experiencia: 39 meses
+---------------------------------------------
+Nombre: Julio
+Edad: 20
+Estatura: 1.8 m
+Experiencia: 90 meses
+---------------------------------------------
