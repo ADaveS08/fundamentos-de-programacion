@@ -88,10 +88,16 @@ print(f"""\n████   ███   ████ █   █ █████ �
 
 
 
-
+#----------------------------------------------------------------------------------------
+# Importados
 
 import time
 import threading
+import msvcrt
+
+
+#-----------------------------------------------------------------------------------------
+# def Iniciar Sesion
 
 Usuario_Correcto = "TheGoat" 
 Contraseña_Correcta = "1234"
@@ -122,11 +128,8 @@ def Iniciar_Sesion():
 
 
 
-
-
-
-evento_temporizador = threading.Event()
-inactividad_detectada = threading.Event()
+#-------------------------------------------------------------------------------------------
+# def Barras de carga
 
 
 def Tiempo_de_Carga():
@@ -138,6 +141,7 @@ def Tiempo_de_Carga():
         print(f"\r[{barra}] {porcentaje}%", end="")
         time.sleep(0.15)
 
+
 def Tiempo_de_Carga2():
 
     print(f"{VERDE_CLARO}Cargando...{RESET}")
@@ -148,10 +152,17 @@ def Tiempo_de_Carga2():
         time.sleep(0.05)
 
 
+#--------------------------------------------------------------------------------------------
+# def Temporizador
+
+evento_temporizador = threading.Event()
+inactividad_detectada = threading.Event()
+
 def Temporizador_Inactividad():
 
     while True:
-        for i in range(600):
+
+        for i in range(10):
 
             if evento_temporizador.wait(1):
                 break
@@ -167,30 +178,77 @@ def Iniciar_Temporizador():
         target=Temporizador_Inactividad,
         daemon=True
     )
+
     hilo.start()
+
 
 def Reiniciar_Temporizador():
 
     evento_temporizador.set()
     evento_temporizador.clear()
 
+
+def Leer_Opcion():
+
+    entrada = ""
+
+    print(f"{CIAN}Ingresa una opción numérica del 1-6: {RESET}", end="", flush=True)
+
+    while True:
+
+        if inactividad_detectada.is_set():
+            return None
+
+        if msvcrt.kbhit():
+
+            tecla = msvcrt.getwch()
+
+            if tecla == "\r":
+                print()
+                return entrada
+
+            elif tecla == "\b":
+
+                if len(entrada) > 0:
+                    entrada = entrada[:-1]
+                    print("\b \b", end="", flush=True)
+
+            else:
+
+                entrada += tecla
+                print(tecla, end="", flush=True)
+
+        time.sleep(0.01)
+
+
+#----------------------------------------------------------------------------------------------
+# Inactividad
+
 def Verificar_Inactividad():
 
     if inactividad_detectada.is_set():
 
-        respuesta = input("\n¿Sigues estando ahí? (s/n): ").lower()
+        print(f"\n{ROJO_CLARO}Han pasado 10 minutos sin actividad.{RESET}")
+
+        respuesta = input("¿Sigues estando ahí? (s/n): ").lower()
 
         if respuesta == "s":
+
             inactividad_detectada.clear()
             Reiniciar_Temporizador()
+
             return True
 
         elif respuesta == "n":
-            print("Sesión finalizada por inactividad.")
+
+            print(f"{AMARILLO_CLARO}Sesión finalizada por inactividad.{RESET}")
+
             return False
 
         else:
+
             print("Respuesta no válida.")
+
             return False
 
     return True
@@ -221,6 +279,9 @@ def Nuevo_integrante():
             if edad <= 17:
                 print("La edad debe ser mayor a 17 años")
                 continue
+            if edad > 122:
+                print(f"{ROJO_CLARO}No puedes tener más de 122 años\n{AMARILLO}La persona más longeva llegó a los 122 años con 164 días.{RESET}")
+                continue
             break
         except ValueError:
             print("Error, ingresa un número entero para la edad")
@@ -231,8 +292,14 @@ def Nuevo_integrante():
         try:
             estatura = float(input("Ingresa tu estatura en metros: "))
 
+            if estatura <= 0.628 or 0:
+                print(f"{ROJO_CLARO}No puedes medir {estatura} metros{RESET},\n{AMARILLO}La persona mas pequeña del mundo mide apenas 62.8cm y no le es posible jugar basquetball{RESET}")
+                continue
             if estatura <= 0:
                 print("La estatura no puede ser 0 ni negativa")
+                continue
+            if estatura > 2.72:
+                print(f"{ROJO_CLARO}No puedes medir {estatura} metros{RESET}.\n{AMARILLO}La persona más alta del mundo alcanzó una altura de 2.72m{RESET}")
                 continue
             break
         except ValueError:
@@ -312,7 +379,7 @@ def Guardar_Jugadores():
 def Leer_Archivo():
     print("\n\n=============================================")
     print("\n\tLeyendo archivo...")
-    print("\n-----------------------------------")
+    print("\n---------------------------------------------")
 
     try:
         with open("FdP-Semana 7/jugadores.txt", "r", encoding="cp1252") as jugadores:
@@ -407,7 +474,15 @@ if acceso:
         print(f"{AMARILLO}---------------------------------------------{RESET}")
 
         try:
-            opcion = int(input(f"{CIAN}Ingresa una opción numérica del 1-6: {RESET}"))
+            opcion = Leer_Opcion()
+
+            if opcion is None:
+                if not Verificar_Inactividad():
+                    break
+                continue
+
+            opcion = int(opcion)
+
             Reiniciar_Temporizador()
 
             if opcion == 1:
